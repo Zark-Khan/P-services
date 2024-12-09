@@ -30,13 +30,13 @@ function HomeCompo({ data }) {
   return (
     <Container maxWidth="lg" sx={{ py: 10 , background:"#ffffff"}}>
       <Box>
-        <Typography sx={{ textAlign: "center" }} variant="h6" gutterBottom>
+        <Typography sx={{ textAlign: "center", color:"black" }} variant="h6" gutterBottom>
           Why Choose Us
         </Typography>
-        <Typography sx={{ textAlign: "center" }} variant="h4" gutterBottom>
+        <Typography sx={{ textAlign: "center", color:"black" }} variant="h4" gutterBottom>
           We Are Different From Others
         </Typography>
-        <Typography sx={{ textAlign: "center" }} variant="body2" gutterBottom>
+        <Typography sx={{ textAlign: "center", color:"black" }} variant="body2" gutterBottom>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde atque
           architecto, facere eveniet corporis praesentium rem fugiat quam itaque
           rerum repellat consectetur earum a nemo exercitationem, quisquam odit
@@ -49,7 +49,7 @@ function HomeCompo({ data }) {
           <Box
             position="relative"
             width="50%"
-            height="300px"
+            height="280px"
             marginBottom={4}
             marginTop={6}
           >
@@ -61,7 +61,7 @@ function HomeCompo({ data }) {
                 left: 0,
                 width: "100%",
                 height: "100%",
-                backgroundColor: "black",
+                backgroundColor: "red",
                 borderRadius: "50%",
                 opacity: "0.1",
               }}
@@ -106,7 +106,7 @@ function HomeCompo({ data }) {
                   key={index}
                   sx={{
                     width: "100%",
-                    backgroundColor: "lightgray", // Red background color
+                    backgroundColor: index === 0 ? "red" : "lightgray", // Red background color
                     borderTopLeftRadius: "8px", // Border radius for the left side
                     borderBottomLeftRadius: "8px", // Border radius for the left side
                     marginBottom: 2, // Space between items
