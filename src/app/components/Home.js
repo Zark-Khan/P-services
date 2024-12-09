@@ -28,7 +28,7 @@ function HomeCompo({ data }) {
     value?.replace(/^-\s*/, "").trim()
   );
   return (
-    <Container maxWidth="lg" sx={{ py: 10 }}>
+    <Container maxWidth="lg" sx={{ py: 10 , background:"#ffffff"}}>
       <Box>
         <Typography sx={{ textAlign: "center" }} variant="h6" gutterBottom>
           Why Choose Us
