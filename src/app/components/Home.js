@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -15,14 +15,14 @@ import {
 function HomeCompo({ data }) {
   console.log(data);
 
-  const listValues = data.list_values
-  ? data.list_values
-      .trim() // Remove leading/trailing whitespace
-      .split("\n") // Split into an array by newline
-      .filter((val) => val.trim() !== "") // Remove empty lines
-      .map((value) => value.replace(/^-\s*/, "").trim()) // Remove leading "-" and trim
-  : [];
+  const listValues = data?.list_values || [];
+  
+  const [selectedItem, setSelectedItem] = useState(listValues[0] || {});  
 
+  const handleListItemClick = (item) => {
+    setSelectedItem(item);
+  };
+  
   return (
     <Container maxWidth="lg" sx={{ py: 10 , background:"#ffffff"}}>
       <Box>
@@ -66,8 +66,8 @@ function HomeCompo({ data }) {
               <Typography
                 sx={{
                   position: "absolute",
-                  top: "50%",
-                  left: "50%",
+                  top: "45%",
+                  left: "40%",
                   transform: "translate(-50%, -50%)", // Centers the text
                   fontWeight: "bold",
                   fontSize: "20px",
@@ -76,8 +76,18 @@ function HomeCompo({ data }) {
                   
                 }}
               >
-                {data?.image_text}
+                {selectedItem?.title}
+                <span style={{
+                display: "block", // Makes the span a block element (on a new line)
+                fontSize: "14px", // Smaller font size for the description
+                fontWeight: "normal", // No bold styling
+                color: "white", // Optional: keep text color consistent with title
+                marginTop: "8px",
+              }}>
+                {selectedItem?.description}
+                </span>
               </Typography>
+             
             </Box>
             <Box
             sx={{
@@ -96,7 +106,9 @@ function HomeCompo({ data }) {
                 }}
                 
               >
-                {data?.image_text}
+                {selectedItem?.title}
+                <br />
+                {selectedItem?.description}
               </Typography>
               </Box>
             {/* Image Circle (Edges Crossing) */}
@@ -109,7 +121,7 @@ function HomeCompo({ data }) {
                 left: "75%", // Slightly offset to overlap the background circle
                 width: "100%", 
                 height: {xs:"300px", sm:"300px", md:"100%"},
-                backgroundImage: `url('https://st.depositphotos.com/1049680/2265/i/950/depositphotos_22652109-stock-photo-young-woman-using-laptop.jpg')`, // Replace with your image URL
+                backgroundImage: `url('${selectedItem?.image_list?.url}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: {xs:"0%", sm:"0%",md:"50%"},
@@ -124,12 +136,12 @@ function HomeCompo({ data }) {
         <Grid item xs={12} md={4} sx={{ marginTop: {xs:"10px", sm:"10px", md:"90px"} }}>
           <List sx={{ width: "100%" }}>
             {!!listValues.length &&
-              listValues.map((feature, index) => (
+              listValues.map((item, index) => (
                 <ListItem
                   key={index}
                   sx={{
                     width: "100%",
-                    backgroundColor: index === 0 ? "#ac2541" : "#dfe4ed", // Red background color
+                    backgroundColor: selectedItem?.title === item.title ? "#ac2541" : "#dfe4ed",
                     borderTopLeftRadius: "8px", // Border radius for the left side
                     borderBottomLeftRadius: "8px", // Border radius for the left side
                     marginBottom: 2, // Space between items
@@ -138,18 +150,19 @@ function HomeCompo({ data }) {
                     display: "flex",
                     justifyContent: "space-between",
                   }}
+                  onClick={() => handleListItemClick(item)}
                 >
-                  <div style={{  color: index === 0 ? "#dfe4ed" : "black", minWidth: "40px", fontWeight:"bold" }}>
+                  <div style={{  color:  selectedItem?.title === item.title ? "#dfe4ed" : "black", minWidth: "40px", fontWeight:"bold" }}>
                     <p>{"<"}</p>
                   </div>
                   <div
                     // primary={feature.text}
                     style={{
-                      color: index === 0 ? "#dfe4ed" : "black",
+                      color:  selectedItem?.title === item.title ? "#dfe4ed" : "black",
                       ml: 2, // Space between icon and text
                     }}
                   >
-                    {feature}
+                     {item.title}
                   </div>
                 </ListItem>
               ))}
