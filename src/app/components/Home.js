@@ -15,18 +15,14 @@ import {
 function HomeCompo({ data }) {
   console.log(data);
 
-  const firstValues = data.map((item) => {
-    const listValues = item.list_values
-      ? item.list_values
-          .trim()
-          .split("\n")
-          .filter((val) => val.trim() !== "")
-      : [];
-    return listValues[0]; // Return the first value
-  });
-  const firstValuesCleaned = firstValues.map((value) =>
-    value?.replace(/^-\s*/, "").trim()
-  );
+  const listValues = data.list_values
+  ? data.list_values
+      .trim() // Remove leading/trailing whitespace
+      .split("\n") // Split into an array by newline
+      .filter((val) => val.trim() !== "") // Remove empty lines
+      .map((value) => value.replace(/^-\s*/, "").trim()) // Remove leading "-" and trim
+  : [];
+
   return (
     <Container maxWidth="lg" sx={{ py: 10 , background:"#ffffff"}}>
       <Box>
@@ -37,21 +33,20 @@ function HomeCompo({ data }) {
           We Are Different From Others
         </Typography>
         <Typography sx={{ textAlign: "center", color:"black" }} variant="body2" gutterBottom>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde atque
-          architecto, facere eveniet corporis praesentium rem fugiat quam itaque
-          rerum repellat consectetur earum a nemo exercitationem, quisquam odit
-          consequatur maxime.
+         {data?.sub_description}
         </Typography>
       </Box>
-      <Grid container spacing={4} alignItems="center">
+      <Grid container spacing={4}  sx={{display:"flex", justifyContent:"space-between"}}>
         {/* Left Side: Image Section */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={8}>
           <Box
-            position="relative"
-            width="50%"
-            height="280px"
+            position={{md:"relative"}}
+            width={{xs:"100%", sm:"100%", md:"50%"}}
+            height="370px"
             marginBottom={4}
             marginTop={6}
+            display={{xs:"flex", sm:"flex"}}
+            flexWrap={{xs:"wrap", sm:"wrap"}}
           >
             {/* Background Circle */}
             <Box
@@ -61,9 +56,11 @@ function HomeCompo({ data }) {
                 left: 0,
                 width: "100%",
                 height: "100%",
-                backgroundColor: "red",
+                backgroundColor: "#ac2541",
                 borderRadius: "50%",
-                opacity: "0.1",
+                opacity: 0.7, // Make it semi-transparent
+                zIndex: 2,
+                display:{xs:"none", sm:"none", md:"block"}
               }}
             >
               <Typography
@@ -75,54 +72,80 @@ function HomeCompo({ data }) {
                   fontWeight: "bold",
                   fontSize: "20px",
                   color: "white", // Text color (adjust as needed)
+                  zIndex: 3,
+                  
                 }}
               >
-                Your Text Here
+                {data?.image_text}
               </Typography>
             </Box>
+            <Box
+            sx={{
+              width:"100%",
+              display:{xs:"block", sm:"block", md:"none"},
+            }}
+            >
+            <Typography
+                sx={{
+                  width:"100%",
+                  // transform: "translate(-50%, -50%)", // Centers the text
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                  color: "black", 
+                  textAlign:"center"
+                }}
+                
+              >
+                {data?.image_text}
+              </Typography>
+              </Box>
             {/* Image Circle (Edges Crossing) */}
+            
+            
             <Box
               sx={{
-                position: "absolute",
+                position: {md:"absolute"},
                 top: "0%",
-                left: "85%", // Slightly offset to overlap the background circle
-                width: "100%", // Smaller size to create overlap
-                height: "100%",
+                left: "75%", // Slightly offset to overlap the background circle
+                width: "100%", 
+                height: {xs:"300px", sm:"300px", md:"100%"},
                 backgroundImage: `url('https://st.depositphotos.com/1049680/2265/i/950/depositphotos_22652109-stock-photo-young-woman-using-laptop.jpg')`, // Replace with your image URL
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                borderRadius: "50%",
+                borderRadius: {xs:"0%", sm:"0%",md:"50%"},
+                zIndex: 1,
               }}
             />
           </Box>
+          
         </Grid>
 
         {/* Right Side: Text Section */}
-        <Grid item xs={12} md={6} sx={{ marginTop: "90px" }}>
+        <Grid item xs={12} md={4} sx={{ marginTop: {xs:"10px", sm:"10px", md:"90px"} }}>
           <List sx={{ width: "100%" }}>
-            {!!firstValuesCleaned.length &&
-              firstValuesCleaned.map((feature, index) => (
+            {!!listValues.length &&
+              listValues.map((feature, index) => (
                 <ListItem
                   key={index}
                   sx={{
                     width: "100%",
-                    backgroundColor: index === 0 ? "red" : "lightgray", // Red background color
+                    backgroundColor: index === 0 ? "#ac2541" : "#dfe4ed", // Red background color
                     borderTopLeftRadius: "8px", // Border radius for the left side
                     borderBottomLeftRadius: "8px", // Border radius for the left side
                     marginBottom: 2, // Space between items
                     padding: 2,
-                    color: "white", // White text for better contrast
+                    color: "black", // White text for better contrast
                     display: "flex",
                     justifyContent: "space-between",
                   }}
                 >
-                  <div style={{ color: "white", minWidth: "40px" }}>
+                  <div style={{  color: index === 0 ? "#dfe4ed" : "black", minWidth: "40px", fontWeight:"bold" }}>
                     <p>{"<"}</p>
                   </div>
                   <div
                     // primary={feature.text}
                     style={{
-                      color: "white",
+                      color: index === 0 ? "#dfe4ed" : "black",
                       ml: 2, // Space between icon and text
                     }}
                   >
