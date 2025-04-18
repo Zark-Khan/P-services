@@ -12,8 +12,8 @@ export default function RootLayout({ children }) {
   // Fetch the data dynamically from the API
   useEffect(() => {
     const fetchData = async () => {
-      const url = 'https://precious-gem-ec04bd9295.strapiapp.com/api/home-page';
-      const token = '31864013ce6e76aff855372484eb77fa0e5918734b59ed57fd7be2298698ac08561c6d6eac00feb637f9d8783367895ca12dbbf0b9e625b5e6fd7f94ce9e17e517473c6ea62145bd8e5ff36a4d0f081a0394fe567eabe63a553a3ee0c2f0b7332e4793b63d7ea2957ff72b5d0760ffd3d394395fb8a2e1b07450a9d0e2e89479';
+      const url = 'https://essential-fun-2e6b6df39c.strapiapp.com/api/home-page';
+      const token = '8a24c5ea77a5327df59a231af99f58a27bdfcad028e3bc9ebd70d2a26a278bf6af84d03d7adcfc0cc1505f1d0af09712cd9b22f4b0505ad2092e929e79d67e18483e9ffbc3dd19a4d95924ee8763b81ef566119b4db7d892fed36b82dcb270d74a6a99450e10c95d82d2cd9bb4cb8a774721b155538800bc570bb862211f2ea1';
 
       try {
         const response = await fetch(url, {
