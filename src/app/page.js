@@ -43,7 +43,7 @@ export default async function Home() {
           <title>Default Title</title>
           <meta name="description" content="Default Description" />
         </Head>
-        <HomeCompo data={{}} />
+        <HomeCompo  />
       </>
     );
   }
